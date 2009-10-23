@@ -13,7 +13,7 @@ end
 
 spec = Gem::Specification.new do |s|
   s.name              = "rack-cache-buster"
-  s.version           = "0.1.0"
+  s.version           = "0.2.0"
   s.summary           = "Place this in your rack stack and all caching will be gone."
   s.author            = "Tom Lea"
   s.email             = "commit@tomlea.co.uk"
@@ -23,8 +23,8 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files  = %w(README.markdown)
   s.rdoc_options      = %w(--main README.markdown)
 
-  s.files             = %w(README.markdown) + Dir.glob("{test,lib}/**/*")
-  s.require_paths     = ["lib"]
+  s.files             = %w(README.markdown) + Dir.glob("{recipes,test,lib}/**/*")
+  s.require_paths     = ["recipes", "lib"]
   s.rubyforge_project = "rack-cache-buster"
 end
 
