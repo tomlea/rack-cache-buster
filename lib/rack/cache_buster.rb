@@ -54,6 +54,6 @@ module Rack
       headers.merge(ETag => modify_etag(headers[ETag]))
     end
 
-    autoload :CacheControlHeader, "rack/cache_buster/cache_controll_header"
+    autoload :CacheControlHeader, "rack/cache_buster/cache_control_header"
   end
 end
