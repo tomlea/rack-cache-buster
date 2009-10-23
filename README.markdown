@@ -1,25 +1,17 @@
 # Rack::CacheBuster
 
-Place this in your rack stack and all caching will be gone.
-
-Add an optional key to salt the ETags in and out of your app.
-
-## Usage:
-    use Rack::CacheBuster, APP_VERSION
-
-# Rack::CacheBuster::Auto
-
 Use to wind down a running app when needed.
 
-Busts the cache when enabled file exists, salts the ETags when key_file exists.
+Limits the max-age to the contents of the `WIND_DOWN` file, and salts the ETags to unsure clients see different deployments as having different contents.
 
 ## Usage:
+    require "rack/cache_buster"
+    WIND_DOWN_TIME = Time.parse(File.read(File.join(Rails.root, "WIND_DOWN"))) rescue nil
+    APP_VERSION    = File.read(File.join(Rails.root, "REVISION")) rescue nil
+    
+    …
 
-### Setup:
-
-ensure you have a REVISION file on your production servers, capistrano does this by default.
-
-    use Rack::CacheBuster::Auto, File.join(Rails.root, "REVISION"), File.join(Rails.root, "WIND_DOWN")
+    use Rack::CacheBuster, APP_VERSION, WIND_DOWN_TIME
 
 ### Before you deploy:
 
@@ -29,6 +21,10 @@ ensure you have a REVISION file on your production servers, capistrano does this
 
 * Restart all instances (touch tmp/restart.txt will be fine for passenger apps).
 
-During this period all caching will be disabled. If you respect If-Modified (using `stale?` in rails for example), these will still be respected.
+* Once all the caches should have expired you can deploy as normal.
 
-Once all the caches should have expired you can deploy as normal.
+## Notes
+
+If you are using Rack::Cache, you can safely put the CacheBuster below it in the stack, but only if you clear Rack::Cache's cache upon deploy.
+
+This is actually the recommended approach as it will prevent the increased amount of hits between `WIND_DOWN_TIME` and your actual deployment from making it through to your app.
