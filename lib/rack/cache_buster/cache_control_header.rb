@@ -1,6 +1,6 @@
 require "rack/cache_buster"
 
-class Rack::CacheBuster::CacheControlHeader < Rack::CacheBuster
+class Rack::CacheBuster::CacheControlHeader
   CacheControl = "Cache-Control".freeze
   Age = "Age".freeze
   MaxAge = "max-age".freeze

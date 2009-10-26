@@ -6,14 +6,39 @@ Limits the max-age to the contents of the `WIND_DOWN` file, and salts the ETags 
 
 ## Usage:
     require "rack/cache_buster"
-    WIND_DOWN_TIME = Time.parse(File.read(File.join(Rails.root, "WIND_DOWN"))) rescue nil
-    APP_VERSION    = File.read(File.join(Rails.root, "REVISION")) rescue nil
-    
     …
-
     use Rack::CacheBuster, APP_VERSION, WIND_DOWN_TIME
 
-### Before you deploy:
+
+## Rails Usage:
+    require "rack/cache_buster"
+    …
+    use Rack::CacheBuster::Rails
+
+### Before you deploy (capistrano):
+
+Add this to your `deploy.rb`:
+
+    begin
+      gem "rack-cache-buster"
+      require 'rack_cache_buster_recipes'
+    rescue LoadError
+      puts "\n\n*** Please gem install rack-cache-buster before trying to deploy.\n\n"
+    end
+
+    # set :wind_down_time, 60*60 # defaults to 1hr
+
+Then:
+
+    cap cache:winddown
+
+… wait 1 hr …
+
+    cap deploy:migrations
+
+… profit!
+
+### Before you deploy (other):
 
 * Find the maximum cache duration for all pages in your app, start this process with at least that amount time before you deploy.
 

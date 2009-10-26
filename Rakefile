@@ -13,7 +13,7 @@ end
 
 spec = Gem::Specification.new do |s|
   s.name              = "rack-cache-buster"
-  s.version           = "0.2.0"
+  s.version           = "0.2.1"
   s.summary           = "Place this in your rack stack and all caching will be gone."
   s.author            = "Tom Lea"
   s.email             = "commit@tomlea.co.uk"

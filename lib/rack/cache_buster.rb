@@ -34,9 +34,7 @@ module Rack
     end
 
     def unpatch_etag(headers)
-      p headers
       ETAGGY_HEADERS.inject(headers){|memo, k|
-        p [k, memo[k], strip_etag(memo[k])] if memo[k]
         memo.has_key?(k) ? memo.merge(k => strip_etag(memo[k])) : memo
       }
     end
@@ -55,5 +53,6 @@ module Rack
     end
 
     autoload :CacheControlHeader, "rack/cache_buster/cache_control_header"
+    autoload :Rails, "rack/cache_buster/rails"
   end
 end
