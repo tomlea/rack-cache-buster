@@ -35,7 +35,7 @@ module Rack
 
     def unpatch_etag(headers)
       ETAGGY_HEADERS.inject(headers){|memo, k|
-        memo.has_key?(k) ? memo.merge(k => strip_etag(memo[k])) : memo
+        memo[k] ? memo.merge(k => strip_etag(memo[k])) : memo
       }
     end
 

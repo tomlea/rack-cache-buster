@@ -27,6 +27,20 @@ class CacheBustingTest < IntegrationTest
     end
   end
 
+  should "no explode when etagy header is given but nil" do
+    given_env = nil
+
+    @app = Rack::CacheBuster.new(lambda { |env| given_env = env; [200, {}, []]  }, "foo", Time.now)
+
+    headers = {}
+    Rack::CacheBuster::ETAGGY_HEADERS.each do |k|
+      headers[k] = nil
+    end
+
+    @app.call(headers)
+
+  end
+
   should "set max-age to 0 if we should already have expired" do
     @app = Rack::CacheBuster.new(CACHEY_APP, nil, Time.now - 100)
     get "/foooo"

@@ -11,28 +11,7 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
-spec = Gem::Specification.new do |s|
-  s.name              = "rack-cache-buster"
-  s.version           = "0.2.1"
-  s.summary           = "Place this in your rack stack and all caching will be gone."
-  s.author            = "Tom Lea"
-  s.email             = "commit@tomlea.co.uk"
-  s.homepage          = "http://tomlea.co.uk/"
-
-  s.has_rdoc          = true
-  s.extra_rdoc_files  = %w(README.markdown)
-  s.rdoc_options      = %w(--main README.markdown)
-
-  s.files             = %w(README.markdown) + Dir.glob("{recipes,test,lib}/**/*")
-  s.require_paths     = ["recipes", "lib"]
-  s.rubyforge_project = "rack-cache-buster"
-end
-
-Rake::GemPackageTask.new(spec) do |pkg|
-  pkg.gem_spec = spec
-  file = File.dirname(__FILE__) + "/#{spec.name}.gemspec"
-  File.open(file, "w") {|f| f << spec.to_ruby }
-end
+Rake::GemPackageTask.new(eval(File.read("rack-cache-buster.gemspec"))){}
 
 Rake::RDocTask.new do |rd|
   rd.main = "README.markdown"
