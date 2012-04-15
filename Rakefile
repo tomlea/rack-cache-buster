@@ -20,6 +20,4 @@ Rake::RDocTask.new do |rd|
 end
 
 desc 'Clear out RDoc and generated packages'
-task :clean => [:clobber_rdoc, :clobber_package] do
-  rm "#{spec.name}.gemspec"
-end
+task :clean => [:clobber_rdoc, :clobber_package]

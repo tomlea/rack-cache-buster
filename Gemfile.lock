@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    rack-cache-buster (0.2.2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rack (1.4.1)
+    rack-test (0.6.1)
+      rack (>= 1.0)
+    rake (0.9.2.2)
+    shoulda (3.0.1)
+      shoulda-context (~> 1.0.0)
+      shoulda-matchers (~> 1.0.0)
+    shoulda-context (1.0.0)
+    shoulda-matchers (1.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rack-cache-buster!
+  rack-test
+  rake
+  shoulda
